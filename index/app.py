@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pickle
 import requests
+import os
 
 # Load model & vectorizer
 model = pickle.load(open("lr_model_balanced.pkl", "rb"))
@@ -12,8 +13,13 @@ vectorizer = pickle.load(open("lr_vectorizer_balanced.pkl", "rb"))
 app = Flask(__name__)
 CORS(app)
 
-NEWS_API_KEY = "3358307798f84164adf991cbb1990a6f"  # Replace with your key
+NEWS_API_KEY = "3358307798f84164adf991cbb1990a6f"
 NEWS_API_URL = "https://newsapi.org/v2/everything"
+
+# 
+@app.route("/")
+def home():
+    return "Fake News Detection API is running!"
 
 def get_related_news(query, max_results=3):
     params = {
@@ -68,4 +74,5 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
