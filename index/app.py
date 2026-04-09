@@ -16,10 +16,10 @@ CORS(app)
 NEWS_API_KEY = "3358307798f84164adf991cbb1990a6f"
 NEWS_API_URL = "https://newsapi.org/v2/everything"
 
-# 
-@app.route("/")
-def home():
-    return "Fake News Detection API is running!"
+
+@app.route("/test")
+def test():
+    return "Test route works!"
 
 def get_related_news(query, max_results=3):
     params = {
